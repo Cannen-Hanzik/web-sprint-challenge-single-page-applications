@@ -1,23 +1,23 @@
-import React , { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import './App.css';
 import { Route, Link, Switch } from 'react-router-dom';
-import styled from 'styled-components';
-import axios from 'axios';
+import styled from "styled-components"; //? may not use this here, but good to note
+import axios from "axios";
 
-
-//Importing the components
-import Header from './components/Header';
-import Home from './components/Home';
-import Cart from './components/Cart';
+//component imports
+import Header from "./components/Header";
+import Home from "./components/Home";
 import PizzaForm from './components/PizzaForm';
+import Cart from './components/Cart';
 
+// import schema
 import * as yup from 'yup';
-import schema from './validation/formSchema';
+import schema from './validation/formSchema'
 
-const intialVals = {
+const intVals = {
   name: '',
   size: '',
-
+  //toppings
   pepperoni: false,
   olives: false,
   chicken: false,
@@ -28,14 +28,16 @@ const intialVals = {
 const intErrors = {
   name: '',
   size: '',
-
+  // submitBtn: ''
+  
 }
 
 const intDisabled = true;
 
+
 const App = () => {
   const [ pizzaOrder, setPizzaOrder ] = useState([]);
-  const [ formVals, setFormVals ] = useState(intialVals); 
+  const [ formVals, setFormVals ] = useState(intVals); 
   const [ formErrors, setFormErrors ] = useState(intErrors);
   const [ disabled, setDisabled ] = useState(intDisabled);
 
@@ -60,10 +62,9 @@ const App = () => {
         'olives', 
         'chicken', 
         'pineapple'].filter(tops => !!formVals[tops]),
-      //text for special instructinos
+
       special: formVals.special.trim(),
-    }
-      // setPizzaOrder(pizzaOrder.concat(newOrder))    
+    }   
       postNewOrder(newOrder)
   }
 
@@ -78,12 +79,12 @@ const App = () => {
       console.error(err)
     })
     .finally(() => {
-       setFormVals(intialVals)
+       setFormVals(intVals)
     })
   }
   
   
-  //Validation
+  //Validation Station//
   const validate = (name, value) => {
     yup.reach(schema, name)
       .validate(value)
@@ -94,19 +95,18 @@ const App = () => {
       )
   }
 
-  //Disable submit button if the inputs needed are not there
+  //Disable submit
   useEffect(() => {
     schema.isValid(formVals)
     .then(valid =>{
       setDisabled(!valid)
     })
-    .catch(err => console.error(err))
     .finally(() => ('cleaning'))
   }, [formVals])
 
     return (
     <div className="App">
-      <h1>Lambda Eats</h1>
+      <h1>BLOOM Eats</h1>
       <Header/>
       <Route exact path='/'>
         <Home />
