@@ -83,7 +83,7 @@ const App = () => {
   }
   
   
-  //Validation Station//
+  //Validation
   const validate = (name, value) => {
     yup.reach(schema, name)
       .validate(value)

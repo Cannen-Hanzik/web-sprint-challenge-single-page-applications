@@ -9,7 +9,7 @@ const Home = (props) => {
             <p>Your favorite pizza on demand</p>
 
             <Link to='/pizza'>
-                <button id='order-pizza'>Order Pizza </button>
+                <button id='order-pizza'> Order Pizza </button>
             </Link>
         </div>
     )
